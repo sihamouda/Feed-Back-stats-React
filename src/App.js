@@ -2,10 +2,41 @@ import { useState } from "react";
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
-const Stat = ({ nameFeedback, feedback }) => {
+const Display = ({ nameFeedback, feedback }) => {
    return (
       <div>
          {nameFeedback} {feedback}
+      </div>
+   );
+};
+
+const Statistics = ({ good, neutral, bad }) => {
+   const all = () => {
+      return good + bad + neutral;
+   };
+   const average = () => {
+      if (all() == 0) {
+         return 0;
+      }
+      return (good - bad) / all();
+   };
+   const positive = () => {
+      if (all() == 0) {
+         return "0%";
+      }
+      return (good / all()) * 100 + "%";
+   };
+   if (all() == 0) {
+      return <div>No feedback given</div>;
+   }
+   return (
+      <div>
+         <Display nameFeedback={"good"} feedback={good} />
+         <Display nameFeedback={"neutral"} feedback={neutral} />
+         <Display nameFeedback={"bad"} feedback={bad} />
+         <Display nameFeedback={"all"} feedback={all()} />
+         <Display nameFeedback={"average"} feedback={average()} />
+         <Display nameFeedback={"positive"} feedback={positive()} />
       </div>
    );
 };
@@ -33,9 +64,7 @@ const App = () => {
          <Button onClick={increaseBad} text="bad" />
          <br />
          <h1>Stats</h1>
-         <Stat nameFeedback={"good"} feedback={good} />
-         <Stat nameFeedback={"neutral"} feedback={neutral} />
-         <Stat nameFeedback={"bad"} feedback={bad} />
+         <Statistics good={good} neutral={neutral} bad={bad} />
       </div>
    );
 };
