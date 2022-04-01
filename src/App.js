@@ -4,8 +4,9 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const Display = ({ nameFeedback, feedback }) => {
    return (
-      <div>
-         {nameFeedback} {feedback}
+      <div className="row">
+         <div className="col-2">{nameFeedback}</div>
+         <div className="col-2">{feedback}</div>
       </div>
    );
 };
@@ -57,8 +58,8 @@ const App = () => {
    };
 
    return (
-      <div>
-         <h1>give feedback</h1>
+      <div className="container">
+         <h1>Give Feedback</h1>
          <Button onClick={increaseGood} text="good" />
          <Button onClick={increaseNeutral} text="neutral" />
          <Button onClick={increaseBad} text="bad" />
